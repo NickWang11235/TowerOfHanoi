@@ -1,0 +1,14 @@
+Proposed solution: 
+   
+    1. The recursive call of the base case will occur more and more frequently in higher disc counts. 
+    After analyzing the solution through hand tracing, it seems that the frequency of the call of base case increase 
+    exponentially according to function 2^x. This suggests that the method must recursivelly call upon itself twice 
+    in each iteration of the method. 
+    
+    2. The destination of the moving of the disc changes, this leads me to suggest that the 3 stacks start, mid and end
+    may be stored in an arraylist to be cycled through using a "circular" linkedlist to change the destination of the next
+    move.
+
+    3. A counter object may be needed to be used as the ending condition of the recursion calls.
+
+PS Send me your email or something. Put a txt on github.
