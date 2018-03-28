@@ -29,8 +29,8 @@ public class TowerOfHanoi {
      */
     private void move(ArrayList from, ArrayList to){
         
-        to.add(from.get(from.size()-1));
-        from.remove(from.size()-1);
+        to.add(from.get(0);
+        from.remove(0);
 
     }
     
