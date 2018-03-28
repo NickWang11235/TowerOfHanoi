@@ -16,7 +16,7 @@ public class TowerOfHanoi {
      */
     public TowerOfHanoi(int n){
         
-        start = new ArrayList <Integer>();
+        start = new ArrayList<Integer>();
         mid = new ArrayList<Integer>();
         end = new ArrayList<Integer>();
         
