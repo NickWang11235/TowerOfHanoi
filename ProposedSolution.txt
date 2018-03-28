@@ -15,4 +15,9 @@ PS Send me your email or something. Put a txt on github.
 
 email:
   Derick Tseng (derickboss1@gmail.com)
-  Nick Wang ()
+
+A counter should not be used in a recursive function.  It should terminate when it reaches the end condition.  Therefore, I created a method solved() that returns true if it is complete and false otherwise.  This should prove a better alternative.
+
+The recursive call does happen more and more frequently.  However, since the call is to the same thing anyway, we only need to update what we call the sticks and perform the functions accordingly. (i.e. we change the starting stick to the one that the last disk was placed)
+
+this is where aliasing can come in handy.  We set the new stick to the alias so that none of the old ones, besides the name, changes.
