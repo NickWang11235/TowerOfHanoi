@@ -25,7 +25,6 @@ public class TowerOfHanoi {
         end = new ArrayList<Integer>();
         startClone = new ArrayList<Integer>();
 
-        
         for(int i = 1; i <= n; i++){
             start.add(i);
             startClone.add(i);
@@ -70,7 +69,12 @@ public class TowerOfHanoi {
     public void solve(){
         if(!solved()){
             printCurrentState();
-            //implement
+            
+            //implementation of algorithm goes here
+            //presumably, set aliases here as well
+            //glhf
+            
+            solve();
         }
         else{
             //terminating case
