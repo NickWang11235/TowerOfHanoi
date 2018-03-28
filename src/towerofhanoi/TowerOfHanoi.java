@@ -8,7 +8,10 @@ import java.util.ArrayList;
  */
 public class TowerOfHanoi {
 
-    private ArrayList<Integer> start, startClone, mid, end;
+    private ArrayList<Integer> start; 
+    private ArrayList<Integer> startClone;
+    private ArrayList<Integer> mid;
+    private ArrayList<Integer> end;
     
     /**
      * Constructor TowerOfHanoi
@@ -19,6 +22,7 @@ public class TowerOfHanoi {
         start = new ArrayList<Integer>();
         mid = new ArrayList<Integer>();
         end = new ArrayList<Integer>();
+        startClone = new ArrayList<Integer>();
         
         for(int i = 1; i <= n; i++){
             start.add(i);
@@ -26,6 +30,34 @@ public class TowerOfHanoi {
         }
     }
 
+    
+    /**
+     * Moves the top disk from the initial disk to the next
+     * @param from the stick we move the disk from
+     * @param to the stick we move the disk to
+     */
+    private void move(ArrayList from, ArrayList to)
+    {
+        to.add(0, from.get(0));
+        from.remove(0);
+    }
+    
+    
+    /**
+     * To solve the simplest case of 2 pieces.
+     */
+    public void solveBaseCase(){
+        
+        move(start, mid);
+        print();
+        System.out.println("----------------");
+        move(start, end);
+        print();
+        System.out.println("----------------");
+        move(mid, end);
+        print();
+        System.out.println("----------------");
+    }
     
     
     /**
@@ -44,13 +76,20 @@ public class TowerOfHanoi {
     
     
     /**
-     * To print out the current state of the puzzle.
+     * prints out the current state of the puzzle.
      */
     public void printCurrentState(){
         //pretty print this later
         System.out.println(start);
         System.out.println(mid);
         System.out.println(end);
+    }
+    
+    /**
+     * Overloads the printCurrentState() method so it makes it easier on the fingers
+     */
+    public void print(){
+        printCurrentState();
     }
     
     
