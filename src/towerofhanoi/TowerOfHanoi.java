@@ -23,15 +23,14 @@ public class TowerOfHanoi {
     }
     
     /**
-     * Move the top element to the designated list.
-     * @param from target ArrayList
-     * @param to designated ArrayList
+     * Moves the top disk from the initial disk to the next
+     * @param from the stick we move the disk from
+     * @param to the stick we move the disk to
      */
-    private void move(ArrayList from, ArrayList to){
-        
-        to.add(from.get(0);
+    private void move(ArrayList from, ArrayList to)
+    {
+        to.add(0, from.get(0));
         from.remove(0);
-
     }
     
     
@@ -40,13 +39,15 @@ public class TowerOfHanoi {
      */
     public void solveBaseCase(){
         
-        moveTo(start, mid);
+        move(start, mid);
         print();
-        moveTo(start, end);
+        System.out.println("----------------");
+        move(start, end);
         print();
-        moveTo(mid, end);
+        System.out.println("----------------");
+        move(mid, end);
         print();
-        
+        System.out.println("----------------");
     }
     
     /**
