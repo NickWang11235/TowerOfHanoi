@@ -12,6 +12,7 @@ public class TowerOfHanoi {
     private ArrayList<Integer> startClone;
     private ArrayList<Integer> mid;
     private ArrayList<Integer> end;
+
     
     /**
      * Constructor TowerOfHanoi
@@ -23,6 +24,7 @@ public class TowerOfHanoi {
         mid = new ArrayList<Integer>();
         end = new ArrayList<Integer>();
         startClone = new ArrayList<Integer>();
+
         
         for(int i = 1; i <= n; i++){
             start.add(i);
@@ -31,6 +33,7 @@ public class TowerOfHanoi {
     }
 
     
+
     /**
      * Moves the top disk from the initial disk to the next
      * @param from the stick we move the disk from
@@ -59,6 +62,7 @@ public class TowerOfHanoi {
         System.out.println("----------------");
     }
     
+
     
     /**
      * To recursively solve the puzzle
@@ -77,6 +81,7 @@ public class TowerOfHanoi {
     
     /**
      * prints out the current state of the puzzle.
+     * To print out the current state of the puzzle.
      */
     public void printCurrentState(){
         //pretty print this later
@@ -85,6 +90,7 @@ public class TowerOfHanoi {
         System.out.println(end);
     }
     
+
     /**
      * Overloads the printCurrentState() method so it makes it easier on the fingers
      */
