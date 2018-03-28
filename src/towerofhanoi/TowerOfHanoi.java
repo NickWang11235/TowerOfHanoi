@@ -10,12 +10,21 @@ package towerofhanoi;
  * @author 321895
  */
 public class TowerOfHanoi {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+	
+	private ArrayList<Integer> start, startCopy, mid, end;
+	
+	/**
+	 * Constructor TowerOfHanoi
+	 */
+	public TowerOfHanoi(int n) {
+		
+		mid = new ArrayList<Integer>();
+		end = new ArrayList<Integer>();
+		
+		for(int i = 1; i <= n; i++) {
+			start.add(i);
+			startCopy.add(i);
+		}
+			
+	}
 }
