@@ -27,7 +27,7 @@ public class TowerOfHanoi {
      * @param from target ArrayList
      * @param to designated ArrayList
      */
-    public static void moveTo(ArrayList from, ArrayList to){
+    private void move(ArrayList from, ArrayList to){
         
         to.add(from.get(from.size()-1));
         from.remove(from.size()-1);
