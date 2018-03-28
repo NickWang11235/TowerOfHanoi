@@ -14,5 +14,5 @@ still working on this.  Come Back Later
 
 ## Credits
 
-* Derick Tseng
-* Nick Wang
+* Derick Tseng (derickboss1@gmail.com)
+* Nick Wang (@email)
