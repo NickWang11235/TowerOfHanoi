@@ -12,7 +12,6 @@ still working on this.  Come Back Later
 still working on this.  Come Back Later
 ```
 
-## Credits
-
+## Contributors
 * Derick Tseng (derickboss1@gmail.com)
 * Nick Wang (@email)
