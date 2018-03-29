@@ -9,7 +9,7 @@ public class Test {
         
         test.printCurrentState();
         System.out.println("----------------");
-        test.solveBaseCase();
+        test.solveBase();
     }
     
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * This program is to simulate the puzzle the Tower of Hanoi
  * @author cccc1
+ * @author derickboss1
  */
 public class TowerOfHanoi {
 
@@ -12,11 +13,12 @@ public class TowerOfHanoi {
     private ArrayList<Integer> startClone;
     private ArrayList<Integer> mid;
     private ArrayList<Integer> end;
-
+    private int numberOfDisks;
     
     /**
      * Constructor TowerOfHanoi
      * @param n the number of disks on the starting peg
+     * A larger number represents a larger disk size
      */
     public TowerOfHanoi(int n){
         
@@ -24,8 +26,9 @@ public class TowerOfHanoi {
         mid = new ArrayList<Integer>();
         end = new ArrayList<Integer>();
         startClone = new ArrayList<Integer>();
-
-        for(int i = 1; i <= n; i++){
+        numberOfDisks = n;
+        
+        for(int i = n; i >= 1; i--){
             start.add(i);
             startClone.add(i);
         }
@@ -40,16 +43,16 @@ public class TowerOfHanoi {
      */
     private void move(ArrayList from, ArrayList to)
     {
-        to.add(0, from.get(0));
-        from.remove(0);
+        to.add(from.get(from.size()-1));
+        from.remove(from.size()-1);
     }
     
     
     /**
      * To solve the simplest case of 2 pieces.
+     * for debugging and experimenting purposes
      */
-    public void solveBaseCase(){
-        
+    public void solveBaseCase2(){
         move(start, mid);
         print();
         System.out.println("----------------");
@@ -61,24 +64,29 @@ public class TowerOfHanoi {
         System.out.println("----------------");
     }
     
+    
+    /**
+     * This is the algorithm to solve the Tower Of Hanoi Puzzle
+     * Put here to make code more readable
+     */
+    public void solveBase(){
+        
+    }
 
     
     /**
      * To recursively solve the puzzle
      */
-    public void solve(){
-        if(!solved()){
-            printCurrentState();
-            
-            //implementation of algorithm goes here
-            //presumably, set aliases here as well
-            //glhf
-            
+    public void solve() {
+        
+        if(!solved()) {            
+            print();
+            solveBase();
             solve();
         }
         else{
             //terminating case
-            System.out.println("Completed");
+            System.out.println("\n*****Completed*****\n");
         }
     }
     
@@ -108,14 +116,19 @@ public class TowerOfHanoi {
      * @return true if the puzzle is solved.  False otherwise
      */
     public boolean solved(){
-        for(int i = 0; i < end.size(); i++)
-        {
-            if(startClone.get(i) != end.get(i))
-            {
-                return false;
-            }
+        if(startClone.size() != end.size()){
+            return false;
         }
-        return true;
+        else{
+            for(int i = 0; i < end.size(); i++)
+            {
+                if(startClone.get(i) != end.get(i))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
     
 }
