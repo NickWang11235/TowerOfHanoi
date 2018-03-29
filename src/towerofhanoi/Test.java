@@ -4,11 +4,11 @@ public class Test {
     
     public static void main(String[] args){
         
-        TowerOfHanoi test = new TowerOfHanoi(5);
-        System.out.println("Starting board: ");
-        
+        TowerOfHanoi test = new TowerOfHanoi(2);
+        System.out.println("Starting board :");
         test.print();
-        test.solve();
+        
+        test.solve(test.getStart(), test.getEnd(),2);
     }
     
 }
