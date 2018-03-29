@@ -79,12 +79,6 @@ public class TowerOfHanoi {
         step++;
         
     }
-
-    private void move(ArrayList from, ArrayList to)
-    {
-        to.add(0, from.get(0));
-        from.remove(0);
-    }
     
     /**
      * Solves the puzzle recursively
