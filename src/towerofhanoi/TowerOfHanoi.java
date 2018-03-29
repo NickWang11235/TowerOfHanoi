@@ -9,10 +9,10 @@ import java.util.ArrayList;
  */
 public class TowerOfHanoi {
 
-    private ArrayList<Integer> start; 
+    private ArrayList<Integer> src; 
     private ArrayList<Integer> startClone;
-    private ArrayList<Integer> mid;
-    private ArrayList<Integer> end;
+    private ArrayList<Integer> aux;
+    private ArrayList<Integer> dest;
     private int numberOfDisks;
     
     /**
@@ -22,14 +22,14 @@ public class TowerOfHanoi {
      */
     public TowerOfHanoi(int n){
         
-        start = new ArrayList<Integer>();
-        mid = new ArrayList<Integer>();
-        end = new ArrayList<Integer>();
+        src = new ArrayList<Integer>();
+        aux = new ArrayList<Integer>();
+        dest = new ArrayList<Integer>();
         startClone = new ArrayList<Integer>();
         numberOfDisks = n;
         
         for(int i = n; i >= 1; i--){
-            start.add(i);
+            src.add(i);
             startClone.add(i);
         }
     }
@@ -43,8 +43,15 @@ public class TowerOfHanoi {
      */
     private void move(ArrayList from, ArrayList to)
     {
-        to.add(from.get(from.size()-1));
-        from.remove(from.size()-1);
+        if(from.size() > 0)
+        {
+            to.add(from.get(from.size()-1));
+            from.remove(from.size()-1);
+        }
+        else{
+            //for debugging purposes
+            System.out.println("Bad call");
+        }
     }
     
     
@@ -53,41 +60,60 @@ public class TowerOfHanoi {
      * for debugging and experimenting purposes
      */
     public void solveBaseCase2(){
-        move(start, mid);
+        move(src, aux);
         print();
-        System.out.println("----------------");
-        move(start, end);
+        move(src, dest);
         print();
-        System.out.println("----------------");
-        move(mid, end);
+        move(aux, dest);
         print();
-        System.out.println("----------------");
     }
     
     
     /**
-     * This is the algorithm to solve the Tower Of Hanoi Puzzle
-     * Put here to make code more readable
+     * Algorithm for TowerOfHanoi
+     * @param n number of disks to solve
+     * @param nsrc new source
+     * @param naux new auxiliary
+     * @param ndest new destination
      */
-    public void solveBase(){
+    private void solve(int n, ArrayList<Integer> nsrc, ArrayList<Integer> naux, ArrayList<Integer> ndest) {
+        nsrc = src;
+        naux = aux;
+        ndest = dest;
         
-    }
+        move(nsrc,naux);
+        if(!validPosition()){
+            System.out.println("invalid position");
+        }
+        print();
 
-    
-    /**
-     * To recursively solve the puzzle
-     */
-    public void solve() {
+        move(nsrc,ndest);
+        if(!validPosition()){
+            System.out.println("invalid position");
+        }
+        print();
         
-        if(!solved()) {            
-            print();
-            solveBase();
-            solve();
+        move(naux,ndest);
+        if(!validPosition()){
+            System.out.println("invalid position");
+        }
+        print();
+        
+        if(n == 1){
+            move(nsrc,ndest);
         }
         else{
-            //terminating case
-            System.out.println("\n*****Completed*****\n");
+            solve(n-1,naux,ndest,nsrc);
         }
+    }
+    
+    
+    
+    /**
+     * Overloads solve
+     */
+    public void solve() {
+        solve(numberOfDisks,src,aux,dest);
     }
     
     
@@ -97,9 +123,9 @@ public class TowerOfHanoi {
      */
     public void printCurrentState(){
         //pretty print this later
-        System.out.println(start);
-        System.out.println(mid);
-        System.out.println(end);
+        System.out.println(src);
+        System.out.println(aux);
+        System.out.println(dest);
     }
     
 
@@ -108,27 +134,62 @@ public class TowerOfHanoi {
      */
     public void print(){
         printCurrentState();
+        System.out.println("---------------------");
     }
     
     
     /**
-     * Checks if the puzzle is in the solved state (end peg is in the right order)
+     * gets the number of disks
+     * @return number of disks
+     */
+    public int getNumberOfDisks(){
+        return numberOfDisks;
+    }
+    
+    
+    /**
+     * Checks if the puzzle is in the solved state (destination peg is in the right order)
      * @return true if the puzzle is solved.  False otherwise
      */
     public boolean solved(){
-        if(startClone.size() != end.size()){
+        if(startClone.size() != dest.size()){
             return false;
         }
         else{
-            for(int i = 0; i < end.size(); i++)
+            for(int i = 0; i < dest.size(); i++)
             {
-                if(startClone.get(i) != end.get(i))
+                if(startClone.get(i) != dest.get(i))
                 {
                     return false;
                 }
             }
             return true;
         }
+    }
+    
+    
+    /**
+     * Checks if there are any bigger disks on top of smaller ones
+     * This may help with debugging
+     * @return the validity of the position
+     */
+    public boolean validPosition(){
+        for(int i = 0; i < src.size() - 1; i++){
+            if(src.get(i) < src.get(i+1)){
+                return false;
+            }
+        }
+        for(int i = 0; i < aux.size() - 1; i++){
+            if(aux.get(i) < aux.get(i+1)){
+                return false;
+            }
+        }
+        for(int i = 0; i < dest.size() - 1; i++){
+            if(dest.get(i) < dest.get(i+1)){
+                return false;
+            }
+        }
+        return true;
     }
     
 }
