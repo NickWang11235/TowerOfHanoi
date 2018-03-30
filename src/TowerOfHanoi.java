@@ -14,18 +14,6 @@ public class TowerOfHanoi {
     /**
      * Initialize class fields.
      */
-    {
-        start = new ArrayList();
-        startClone = new ArrayList();
-        mid = new ArrayList();
-        end = new ArrayList();
-
-        allLists.add(start);
-        allLists.add(mid);
-        allLists.add(end);
-
-        step = 0;
-    }
 
     /**
      * Fill in the starting ArrayList with values
@@ -33,11 +21,25 @@ public class TowerOfHanoi {
      */
 
     public TowerOfHanoi(int n){
-        numberOfDisks = n;
+        
+        if(n > 0){
+            start = new ArrayList();
+            startClone = new ArrayList();
+            mid = new ArrayList();
+            end = new ArrayList();
 
-        for(int i = n; i > 0; i--){
-            start.add(i);
-            startClone.add(i);
+            allLists.add(start);
+            allLists.add(mid);
+            allLists.add(end);
+            
+            numberOfDisks = n;
+                    
+            step = 0;
+
+            for(int i = n; i > 0; i--){
+                start.add(i);
+                startClone.add(i);
+            }
         }
 
     }
@@ -62,19 +64,31 @@ public class TowerOfHanoi {
         return end;
 
     }
+    
+    
+    /**
+     * gets the entire game
+     * @return allLists
+     */
+    public ArrayList<ArrayList<Integer>> getAllLists(){
+        return allLists;
+    }
 
+    
     /**
      * Move the top element to the designated list and removes the moved value
      * @param from target ArrayList
      * @param to designated ArrayList
      */
     public static void moveTo(ArrayList from, ArrayList to){
-
-        to.add(from.get(from.size()-1));
-        from.remove(from.size()-1);
-
-        step++;
-
+        if(from.size() > 0){
+            to.add(from.get(from.size()-1));
+            from.remove(from.size()-1);
+            step++;
+        }
+        else{
+            System.out.println("Invalid selection!");
+        }
     }
 
 
@@ -111,6 +125,7 @@ public class TowerOfHanoi {
         solve(start,end,numberOfDisks);
     }
 
+    
     /**
      * Returns the ArrayList that is not specified in the parameter
      * @param list1 the start list that is not specified
@@ -131,12 +146,22 @@ public class TowerOfHanoi {
 
     public void print(){
 
-        System.out.println("Step  :" + step);
+        System.out.println("Steps :" + step);
         System.out.println("start :" + start);
         System.out.println("Mid   :" + mid);
         System.out.println("End   :" + end);
         System.out.println("Solved:" + this.isSolved() + "\n");
 
+    }
+    
+    
+    /**
+     * prints the formatted puzzle
+     */
+    public void printPuzzle(){
+        System.out.println("Stick 1: " + start);
+        System.out.println("Stick 2: " + mid);
+        System.out.println("Stick 3: " + end + "\n");
     }
 
 
