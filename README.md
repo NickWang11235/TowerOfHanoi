@@ -13,8 +13,9 @@ solver algorithm completed.  Non-GUI version of the game complete.  Programming 
 ## Usage
 1. Download the executable jar file from dist/ and to run it, just navigate to the directory where you downloaded the file and type: `java -jar TowerOfHanoi.jar`
 
-... The program will prompt you for the number of disks.  Make sure to put in a positive integer
-... In the from/to prompts, if you put `0` for both of them, the program will automatically solve it, provided that it is the first thing you typed.
+   The program will prompt you for the number of disks.  Make sure to put in a positive integer
+   
+   In the from/to prompts, if you put `0` for both of them, the program will automatically solve it, provided that it is the first thing you typed.
 
 ## Contributors
 * Derick Tseng
