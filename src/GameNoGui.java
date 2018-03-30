@@ -38,6 +38,6 @@ public class GameNoGui {
             }
         }
         
-        System.out.println("\nGOOD JOB.  Took you " + t.steps + " steps! \n\n");
+        System.out.println("\nGOOD JOB.  Took you " + t.getSteps() + " steps! \n\n");
     }
 }

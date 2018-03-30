@@ -3,54 +3,54 @@ import java.util.ArrayList;
 /**
  * This program is to simulate the puzzle the Tower of Hanoi
  * @author cccc1
+ * @author derickboss1
  */
 public class TowerOfHanoi {
     
-    private ArrayList<Integer> start, startClone, mid, end;
-    private ArrayList<ArrayList<Integer>> allLists = new ArrayList<ArrayList<Integer>>();
-    public static int steps;
-    public static int numberOfDisks;
-    private static final int NUMBER_OF_STACKS = 3;
-
     /**
      * Initialize class fields.
      */
+    private ArrayList<Integer> start, startClone, mid, end;
+    private ArrayList<ArrayList<Integer>> allLists = new ArrayList<ArrayList<Integer>>();
+    private static int steps;
+    private static int numberOfDisks;
+    private static final int NUMBER_OF_STACKS = 3;
+
 
     /**
      * Fill in the starting ArrayList with values
      * busts if n less than or equals 0
      * @param n number of discs
      */
-
     public TowerOfHanoi(int n){
-        
-        if(n > 0){
-            start = new ArrayList();
-            startClone = new ArrayList();
-            mid = new ArrayList();
-            end = new ArrayList();
-
-            allLists.add(start);
-            allLists.add(mid);
-            allLists.add(end);
+        start = new ArrayList<Integer>();
+        startClone = new ArrayList<Integer>();
+        mid = new ArrayList<Integer>();
+        end = new ArrayList<Integer>();
             
-            numberOfDisks = n;
-                    
+        if(n > 0){           
+            numberOfDisks = n;                  
             steps = 0;
 
             for(int i = n; i > 0; i--){
                 start.add(i);
                 startClone.add(i);
             }
-        }
 
+        }
+        else{
+            
+        }    
+        
+        allLists.add(start);
+        allLists.add(mid);
+        allLists.add(end);
     }
 
     /**
      * Returns the starting ArrayList
      * @return start
      */
-
     private ArrayList<Integer> getStart(){
 
         return start;
@@ -60,13 +60,34 @@ public class TowerOfHanoi {
      * Returns the target ArrayList
      * @return end
      */
-
     private ArrayList<Integer> getEnd(){
 
         return end;
-
+    }   
+    
+    /**
+     * Returns the target ArrayList
+     * @return mid
+     */
+    private ArrayList<Integer> getMid(){
+        return mid;
     }
     
+    /**
+     * gets the number of disks
+     * @return the number of disks
+     */
+    public int getNumberOfDisks(){
+        return numberOfDisks;
+    }
+    
+    /**
+     * gets the number of steps
+     * @return the number of steps
+     */
+    public int getSteps(){
+        return steps;
+    }
     
     /**
      * gets the entire game
@@ -83,13 +104,12 @@ public class TowerOfHanoi {
      * @param to designated ArrayList
      */
     public void moveTo(ArrayList<Integer> from, ArrayList<Integer> to){
+        
         if(from.size() > 0){
-            ArrayList <Integer> cloneFrom = new ArrayList<Integer>(from);
             ArrayList <Integer> cloneTo = new ArrayList<Integer>(to);
-            cloneTo.add(cloneFrom.get(cloneFrom.size()-1));
-            cloneFrom.remove(cloneFrom.size()-1);
+            cloneTo.add(from.get(from.size()-1));
             
-            if(validPosition(cloneFrom,cloneTo)){
+            if(validPosition(cloneTo)){
                 to.add(from.get(from.size()-1));
                 from.remove(from.size()-1);
                 steps++;
@@ -111,14 +131,9 @@ public class TowerOfHanoi {
      * @param arr2 array to which we move the top disk
      * @return the validity of the position (true/false)
      */
-    private static boolean validPosition(ArrayList<Integer> arr1, ArrayList<Integer> arr2){
-        for(int i = 0; i < arr1.size() - 1; i++){
-            if (arr1.get(i) < arr1.get(i+1)){
-                return false;
-            }
-        }
-        for(int i = 0; i < arr2.size() - 1; i++){
-            if(arr2.get(i) < arr2.get(i+1)){
+    private static boolean validPosition(ArrayList<Integer> arr){
+        for(int i = 0; i < arr.size() - 1; i++){
+            if (arr.get(i) < arr.get(i+1)){
                 return false;
             }
         }
@@ -177,7 +192,6 @@ public class TowerOfHanoi {
     /**
      * To print out the current state of the puzzle.
      */
-
     public void print(){
 
         System.out.println("Steps :" + steps);
