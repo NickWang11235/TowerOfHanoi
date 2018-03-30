@@ -33,11 +33,11 @@ public class GameNoGui {
                 System.out.println("Error. Not a valid stick number!");
             }
             else{
-                TowerOfHanoi.moveTo(t.getAllLists().get(from - 1), t.getAllLists().get(to - 1));
+                t.moveTo(t.getAllLists().get(from - 1), t.getAllLists().get(to - 1));
                 t.printPuzzle();
             }
         }
         
-        System.out.println("\nGOOD JOB \n\n");
+        System.out.println("\nGOOD JOB.  Took you " + t.steps + " steps! \n\n");
     }
 }

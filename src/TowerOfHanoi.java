@@ -5,10 +5,11 @@ import java.util.ArrayList;
  * @author cccc1
  */
 public class TowerOfHanoi {
+    
     private ArrayList<Integer> start, startClone, mid, end;
     private ArrayList<ArrayList<Integer>> allLists = new ArrayList<ArrayList<Integer>>();
-    public static int step;
-    public int numberOfDisks;
+    public static int steps;
+    public static int numberOfDisks;
     private static final int NUMBER_OF_STACKS = 3;
 
     /**
@@ -17,6 +18,7 @@ public class TowerOfHanoi {
 
     /**
      * Fill in the starting ArrayList with values
+     * busts if n less than or equals 0
      * @param n number of discs
      */
 
@@ -34,7 +36,7 @@ public class TowerOfHanoi {
             
             numberOfDisks = n;
                     
-            step = 0;
+            steps = 0;
 
             for(int i = n; i > 0; i--){
                 start.add(i);
@@ -49,7 +51,7 @@ public class TowerOfHanoi {
      * @return start
      */
 
-    public ArrayList<Integer> getStart(){
+    private ArrayList<Integer> getStart(){
 
         return start;
     }
@@ -59,7 +61,7 @@ public class TowerOfHanoi {
      * @return end
      */
 
-    public ArrayList<Integer> getEnd(){
+    private ArrayList<Integer> getEnd(){
 
         return end;
 
@@ -73,22 +75,54 @@ public class TowerOfHanoi {
     public ArrayList<ArrayList<Integer>> getAllLists(){
         return allLists;
     }
-
+    
     
     /**
      * Move the top element to the designated list and removes the moved value
      * @param from target ArrayList
      * @param to designated ArrayList
      */
-    public static void moveTo(ArrayList from, ArrayList to){
+    public void moveTo(ArrayList<Integer> from, ArrayList<Integer> to){
         if(from.size() > 0){
-            to.add(from.get(from.size()-1));
-            from.remove(from.size()-1);
-            step++;
+            ArrayList <Integer> cloneFrom = new ArrayList<Integer>(from);
+            ArrayList <Integer> cloneTo = new ArrayList<Integer>(to);
+            cloneTo.add(cloneFrom.get(cloneFrom.size()-1));
+            cloneFrom.remove(cloneFrom.size()-1);
+            
+            if(validPosition(cloneFrom,cloneTo)){
+                to.add(from.get(from.size()-1));
+                from.remove(from.size()-1);
+                steps++;
+            }
+            else{
+                System.out.println("Unable to perform operation!");
+            }
         }
         else{
             System.out.println("Invalid selection!");
         }
+    }
+    
+    
+    /**
+     * to be used to check if an operation is permissible (bigger cannot be on top of smaller)
+     * This is only as a helper to the moveTo() method
+     * @param arr1 array from which we plan to move the top disk
+     * @param arr2 array to which we move the top disk
+     * @return the validity of the position (true/false)
+     */
+    private static boolean validPosition(ArrayList<Integer> arr1, ArrayList<Integer> arr2){
+        for(int i = 0; i < arr1.size() - 1; i++){
+            if (arr1.get(i) < arr1.get(i+1)){
+                return false;
+            }
+        }
+        for(int i = 0; i < arr2.size() - 1; i++){
+            if(arr2.get(i) < arr2.get(i+1)){
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -146,7 +180,7 @@ public class TowerOfHanoi {
 
     public void print(){
 
-        System.out.println("Steps :" + step);
+        System.out.println("Steps :" + steps);
         System.out.println("start :" + start);
         System.out.println("Mid   :" + mid);
         System.out.println("End   :" + end);
@@ -208,4 +242,5 @@ public class TowerOfHanoi {
         }
         return true;
     }
+    
 }
