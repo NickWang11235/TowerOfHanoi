@@ -9,156 +9,154 @@ import java.util.ArrayList;
  */
 public class TowerOfHanoi {
 
-    private ArrayList<Integer> src; 
-    private ArrayList<Integer> startClone;
-    private ArrayList<Integer> aux;
-    private ArrayList<Integer> dest;
-    private int numberOfDisks;
+    private ArrayList<Integer> start, startClone, mid, end;
+    private ArrayList<ArrayList<Integer>> allLists = new ArrayList<ArrayList<Integer>>();
+    public static int step;
+    public int numberOfDisks;
+    private static final int NUMBER_OF_STACKS = 3;
     
     /**
-     * Constructor TowerOfHanoi
-     * @param n the number of disks on the starting peg
-     * A larger number represents a larger disk size
+     * Initialize class fields.
      */
-    public TowerOfHanoi(int n){
+    {
+        start = new ArrayList();
+        startClone = new ArrayList();
+        mid = new ArrayList();
+        end = new ArrayList();
         
-        src = new ArrayList<Integer>();
-        aux = new ArrayList<Integer>();
-        dest = new ArrayList<Integer>();
-        startClone = new ArrayList<Integer>();
+        allLists.add(start);
+        allLists.add(mid);
+        allLists.add(end);
+        
+        step = 0;
+    }
+    
+    /**
+     * Fill in the starting ArrayList with values
+     * @param n number of discs
+     */
+    
+    public TowerOfHanoi(int n){      
         numberOfDisks = n;
         
-        for(int i = n; i >= 1; i--){
-            src.add(i);
+        for(int i = n; i > 0; i--){
+            start.add(i);   
             startClone.add(i);
         }
+        
     }
-
     
-
     /**
-     * Moves the top disk from the initial disk to the next
-     * @param from the stick we move the disk from
-     * @param to the stick we move the disk to
+     * Returns the starting ArrayList
+     * @return start
      */
-    private void move(ArrayList from, ArrayList to)
-    {
-        if(from.size() > 0)
-        {
-            to.add(from.get(from.size()-1));
-            from.remove(from.size()-1);
+    
+    public ArrayList<Integer> getStart(){
+        
+        return start;
+    
+    }
+    
+    
+    /**
+     * Returns the target ArrayList
+     * @return end
+     */
+    
+    public ArrayList<Integer> getEnd(){
+        
+        return end;
+        
+    }
+    
+    /**
+     * Move the top element to the designated list and removes the moved value
+     * @param from target ArrayList
+     * @param to designated ArrayList
+     */
+    public static void moveTo(ArrayList from, ArrayList to){
+        
+        to.add(from.get(from.size()-1));
+        from.remove(from.size()-1);
+        
+        step++;
+        
+    }
+  
+    
+    /**
+     * Solves the puzzle recursively
+     * @param from starting ArrayList
+     * @param to target ArrayList
+     * @param n number of elements
+     */
+    public void solve(ArrayList<Integer> from, ArrayList<Integer> to, int n){
+      
+        if(n == 2){
+            moveTo(from, getNot(from, to));
+            print();
+            moveTo(from, to);
+            print();
+            moveTo(getNot(from, to), to);
+            print();
         }
         else{
-            //for debugging purposes
-            System.out.println("Bad call");
+            solve(from, getNot(from, to), n-1);
+            moveTo(from, to);
+            print();
+            solve(getNot(from, to), to, n-1);
         }
     }
     
     
     /**
-     * To solve the simplest case of 2 pieces.
-     * for debugging and experimenting purposes
+     * overloads the solve method.  No parameters and solve the whole thing
      */
-    public void solveBaseCase2(){
-        move(src, aux);
-        print();
-        move(src, dest);
-        print();
-        move(aux, dest);
-        print();
+    public void solve(){
+        solve(start,end,numberOfDisks);
     }
     
-    
     /**
-     * Algorithm for TowerOfHanoi
-     * @param n number of disks to solve
-     * @param nsrc new source
-     * @param naux new auxiliary
-     * @param ndest new destination
+     * Returns the ArrayList that is not specified in the parameter
+     * @param list1 the start list that is not specified
+     * @param list2 the mid list that is not specified
+     * @return the list that is neither list1 nor list2
      */
-    private void solve(int n, ArrayList<Integer> nsrc, ArrayList<Integer> naux, ArrayList<Integer> ndest) {
-        nsrc = src;
-        naux = aux;
-        ndest = dest;
+    public ArrayList<Integer> getNot(ArrayList<Integer> list1, ArrayList<Integer> list2){
         
-        move(nsrc,naux);
-        if(!validPosition()){
-            System.out.println("invalid position");
-        }
-        print();
-
-        move(nsrc,ndest);
-        if(!validPosition()){
-            System.out.println("invalid position");
-        }
-        print();
-        
-        move(naux,ndest);
-        if(!validPosition()){
-            System.out.println("invalid position");
-        }
-        print();
-        
-        if(n == 1){
-            move(nsrc,ndest);
-        }
-        else{
-            solve(n-1,naux,ndest,nsrc);
-        }
+        for(int i = 0 ; i < NUMBER_OF_STACKS; i++)
+            if(allLists.get(i) != list1 && allLists.get(i) != list2)
+                return allLists.get(i);
+        return null;
     }
     
-    
-    
     /**
-     * Overloads solve
-     */
-    public void solve() {
-        solve(numberOfDisks,src,aux,dest);
-    }
-    
-    
-    /**
-     * prints out the current state of the puzzle.
      * To print out the current state of the puzzle.
      */
-    public void printCurrentState(){
-        //pretty print this later
-        System.out.println(src);
-        System.out.println(aux);
-        System.out.println(dest);
+
+    public void print(){
+        
+        System.out.println("Step  :" + step);       
+        System.out.println("start :" + start);
+        System.out.println("Mid   :" + mid);
+        System.out.println("End   :" + end);
+        System.out.println("Solved:" + this.isSolved() + "\n");
+        
     }
     
 
     /**
-     * Overloads the printCurrentState() method so it makes it easier on the fingers
-     */
-    public void print(){
-        printCurrentState();
-        System.out.println("---------------------");
-    }
-    
-    
-    /**
-     * gets the number of disks
-     * @return number of disks
-     */
-    public int getNumberOfDisks(){
-        return numberOfDisks;
-    }
-    
-    
-    /**
-     * Checks if the puzzle is in the solved state (destination peg is in the right order)
+     * Checks if the puzzle is in the solved state (end peg is in the right order)
      * @return true if the puzzle is solved.  False otherwise
      */
-    public boolean solved(){
-        if(startClone.size() != dest.size()){
+    public boolean isSolved(){
+        if(startClone.size() != end.size()){
             return false;
         }
         else{
-            for(int i = 0; i < dest.size(); i++)
+            for(int i = 0; i < end.size(); i++)
             {
-                if(startClone.get(i) != dest.get(i))
+                if(startClone.get(i) != end.get(i))
                 {
                     return false;
                 }
@@ -174,18 +172,18 @@ public class TowerOfHanoi {
      * @return the validity of the position
      */
     public boolean validPosition(){
-        for(int i = 0; i < src.size() - 1; i++){
-            if(src.get(i) < src.get(i+1)){
+        for(int i = 0; i < start.size() - 1; i++){
+            if (start.get(i) < start.get(i+1)){
                 return false;
             }
         }
-        for(int i = 0; i < aux.size() - 1; i++){
-            if(aux.get(i) < aux.get(i+1)){
+        for(int i = 0; i < mid.size() - 1; i++){
+            if(mid.get(i) < mid.get(i+1)){
                 return false;
             }
         }
-        for(int i = 0; i < dest.size() - 1; i++){
-            if(dest.get(i) < dest.get(i+1)){
+        for(int i = 0; i < end.size() - 1; i++){
+            if(end.get(i) < end.get(i+1)){
                 return false;
             }
         }
